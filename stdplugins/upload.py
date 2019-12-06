@@ -33,7 +33,7 @@ def get_lst_of_files(input_directory, output_lst):
     return output_lst
 
 
-@borg.on(admin_cmd("uploadir (.*)"))
+@borg.on(admin_cmd(pattern="uploadir (.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -56,8 +56,8 @@ async def _(event):
             if os.path.exists(single_file):
                 # https://stackoverflow.com/a/678242/4723940
                 caption_rts = os.path.basename(single_file)
-                force_document = True
-                supports_streaming = False
+                force_document = False
+                supports_streaming = True
                 document_attributes = []
                 width = 0
                 height = 0
@@ -67,7 +67,7 @@ async def _(event):
                         width = metadata.get("width")
                     if metadata.has("height"):
                         height = metadata.get("height")
-                if single_file.endswith((".mkv", ".mp4", ".webm")):
+                if single_file.upper().endswith(Config.TL_VID_STREAM_TYPES):
                     metadata = extractMetadata(createParser(single_file))
                     duration = 0
                     if metadata.has("duration"):
@@ -83,7 +83,7 @@ async def _(event):
                     ]
                     supports_streaming = True
                     force_document = False
-                if single_file.endswith((".mp3", ".flac", ".wav")):
+                if single_file.upper().endswith(Config.TL_MUS_STREAM_TYPES):
                     metadata = extractMetadata(createParser(single_file))
                     duration = 0
                     title = ""
@@ -156,8 +156,8 @@ async def _(event):
         await borg.send_file(
             event.chat_id,
             input_str,
-            force_document=True,
-            supports_streaming=False,
+            force_document=False,
+            supports_streaming=True,
             allow_cache=False,
             reply_to=event.message.id,
             thumb=thumb,

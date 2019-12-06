@@ -5,7 +5,7 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.account import UpdateNotifySettingsRequest
 from uniborg.util import admin_cmd
 
-@borg.on(admin_cmd("au ?(.*)"))
+@borg.on(admin_cmd("ad ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return 
@@ -13,8 +13,8 @@ async def _(event):
        await event.edit("```Reply to any user message.```")
        return
     reply_message = await event.get_reply_message() 
-    if not reply_message.text:
-       await event.edit("```reply to text message```")
+    if not reply_message.media:
+       await event.edit("```reply to media message```")
        return
     chat = "@dwnmp3Bot"
     sender = reply_message.sender
@@ -24,13 +24,11 @@ async def _(event):
     await event.edit("```Processing```")
     async with borg.conversation(chat) as conv:
           try:     
-              response = conv.wait_event(events.NewMessage(incoming=True,from_users=375300305))
-              await borg.forward_messages(chat, reply_message)
+              response = conv.wait_event(events.NewMessage(incoming=True,from_users=507379365))
+              await borg.send_message(chat, reply_message)
               response = await response 
           except YouBlockedUserError: 
-              await event.reply("```Please unblock @sangmatainfo_bot and try again```")
+              await event.reply("```Please unblock @AudioTubeBot and try again```")
               return
-          if response.text.startswith("Язык/Language"):
-             await event.edit("```can you kindly disable your forward privacy settings for good?```")
-          else: 
-             await borg.send_file(event.chat_id, response.message.media)
+          await event.delete()
+          await borg.send_file(event.chat_id, response.message.media)

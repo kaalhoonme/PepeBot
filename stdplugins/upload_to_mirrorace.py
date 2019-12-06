@@ -2,14 +2,22 @@
 Syntax:
 ."""
 
-import aiohttp
 import asyncio
 import os
-import requests
 import time
 from datetime import datetime
+
+import aiohttp
+import requests
+
 from uniborg.util import admin_cmd, progress
 
+ENV = bool(os.environ.get("ENV", False))
+if ENV:
+    from sample_config import Config
+else:
+    if os.path.exists("sample_config.py"):
+        from sample_config import Development as Config
 
 @borg.on(admin_cmd(pattern="mirrorace ?(.*)", allow_sudo=True))
 async def _(event):

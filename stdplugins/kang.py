@@ -46,10 +46,11 @@ KANGING_STR = [
 "Why u bullin me.....\nರ╭╮ರ`",
 "`BOOM.... HEADSHOT...\n(ノಠ益ಠ)ノ...\n(⌐■-■)`",
 "`Me is having sux with ur GF....\nU can't du nthing...Hehe..\nಠ∀ಠ...(≧▽≦)`",
+    "`Aise tukur tukur kahe Dekh raha hain`",
 
 ]
 
-@borg.on(admin_cmd("kang ?(.*)"))
+@borg.on(admin_cmd(pattern="kang ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -63,6 +64,7 @@ async def _(event):
         sticker_emoji = input_str
 
     me = borg.me
+    name = me.username
     userid = event.from_id
     packname = f"@NeoMatrix90 nikal lawde part2"
     packshortname = f"brattysis_gengbeng{userid}"  # format: Uni_Borg_userid
@@ -133,14 +135,13 @@ async def _(event):
             if "Sorry" in response.text:
                 await event.edit(f"**FAILED**! @Stickers replied: {response.text}")
                 return
-            await silently_send_message(bot_conv, response)
             await silently_send_message(bot_conv, sticker_emoji)
             await silently_send_message(bot_conv, "/done")
 
     await event.edit(f"`This Sticker Is Raped! Plox Help this Sticker by Clicking` [HERE](t.me/addstickers/{packshortname})")
 
 
-@borg.on(admin_cmd("packinfo"))
+@borg.on(admin_cmd(pattern="packinfo"))
 async def _(event):
     if event.fwd_from:
         return
@@ -176,7 +177,7 @@ async def _(event):
                      f"**Emojis In Pack:** {' '.join(pack_emojis)}")
 
 
-@borg.on(admin_cmd("loda ?(.*)"))
+@borg.on(admin_cmd(pattern="loda ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return

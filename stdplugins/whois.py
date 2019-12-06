@@ -9,7 +9,7 @@ from telethon.utils import get_input_location
 from uniborg.util import admin_cmd
 
 
-@borg.on(admin_cmd("rendi ?(.*)"))
+@borg.on(admin_cmd(pattern="rendi ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -36,6 +36,11 @@ async def _(event):
     if first_name is not None:
         # some weird people (like me) have more than 4096 characters in their names
         first_name = first_name.replace("\u2060", "")
+        last_name = replied_user.user.last_name
+    # last_name is not Manadatory in @Telegram
+    if last_name is not None:
+        last_name = html.escape(last_name)
+        last_name = last_name.replace("\u2060", "")
     # inspired by https://telegram.dog/afsaI181
     user_bio = replied_user.about
     if user_bio is not None:
@@ -49,7 +54,8 @@ async def _(event):
     caption = """Detailed Whois:
 
 🔖ID: <code>{}</code>
-👱Name: <a href='tg://user?id={}'>{}</a>
+👱First Name: <a href='tg://user?id={}'>{}</a>
+❣️Last Name: {}
 ✍️Bio: {}
 🗄️Data Centre Number: {}
 🖼 Number of Profile Pics: {}
@@ -57,19 +63,11 @@ async def _(event):
 ✴️Verified: {}
 🤖Bot: {}
 👥Groups in Common: {}
-
-
-List Of Telegram Data Centres:
-
-DC1 : Miami FL, USA
-DC2 : Amsterdam, NL
-DC3 : Miami FL, USA
-DC4 : Amsterdam, NL
-DC5 : Singapore, SG
 """.format(
         user_id,
         user_id,
         first_name,
+        last_name,
         user_bio,
         dc_id,
         replied_user_profile_photos_count,

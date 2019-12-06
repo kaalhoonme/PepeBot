@@ -2,9 +2,9 @@
 .nccreatedch
 .nolog
 .dellog
-.approve
-.blockpm To block pm
-.block To block faking retard nibba
+.apm
+.bpm To block pm
+.blk To block faking retard nibba
 .listapprovedpms"""
 
 import asyncio
@@ -22,7 +22,7 @@ PREV_REPLY_MESSAGE = {}
 BAALAJI_TG_USER_BOT = "My Master hasn't approved you to PM."
 TG_COMPANION_USER_BOT = "Please wait for his response and don't spam his PM."
 UNIBORG_USER_BOT_WARN_ZERO = "You are Spamming my Master's PM, So you are blocked by me. \nNow wait, Until my Master Unblocks you."
-UNIBORG_USER_BOT_NO_WARN = "[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀] \n\nBleep Blop! This is a Bot. Don't Freak xD.\n\nMy Master hasn't approved you to PM yet. Please wait for my Great Master to look in, He mostly approves PMs.\n\nUntil then, please don't spam my King's PM, you'll get blocked and reported!"
+UNIBORG_USER_BOT_NO_WARN = "[──▄█▀█▄─────────██ \n▄████████▄───▄▀█▄▄▄▄ \n██▀▼▼▼▼▼─▄▀──█▄▄ \n█████▄▲▲▲─▄▄▄▀───▀▄ \n██████▀▀▀▀─▀────────▀▀] \n\nBleep Blop! This is a Bot. Don't Freak xD.\n\nMy Master hasn't approved you to PM yet. Please wait for my Great Master to look in, She mostly approves PMs.\n\nUntil then, please don't spam my Queen's PM, you'll get blocked and reported!"
 
 
 @borg.on(admin_cmd(pattern="nccreatedch"))
@@ -83,7 +83,7 @@ async def set_no_log_p_m(event):
                 await event.delete()
 
 
-@borg.on(admin_cmd(pattern="approve($| )(.*)"))
+@borg.on(admin_cmd(pattern="apm($| )(.*)"))
 async def approve_p_m(event):
     if event.fwd_from:
         return
@@ -103,7 +103,7 @@ async def approve_p_m(event):
                 await event.delete()
 
 
-@borg.on(admin_cmd(pattern="block($| )(.*)"))
+@borg.on(admin_cmd(pattern="blk($| )(.*)"))
 async def approve_p_m(event):
     if event.fwd_from:
         return
@@ -119,7 +119,7 @@ async def approve_p_m(event):
                 await event.edit("`For your Irriting Behaviour...\nMy mastor Blocked You..\nNow Go To HELL`")
 
 
-@borg.on(admin_cmd(pattern="blockpm($| )(.*)"))
+@borg.on(admin_cmd(pattern="bpm($| )(.*)"))
 async def approve_p_m(event):
     if event.fwd_from:
         return
@@ -237,9 +237,13 @@ async def on_new_chat_action_message(event):
 async def on_new_channel_message(event):
     if Config.PM_LOGGR_BOT_API_ID is None:
         return
-    if tgbot is None:
+        try:
+           if tgbot is None:
+            return
+        except Exception as e:
+            logger.info(str(e))
         return
-    # logger.info(event.stringify())
+       # logger.info(event.stringify())
     if isinstance(event, types.UpdateChannel):
         channel_id = event.channel_id
         message_id = 2

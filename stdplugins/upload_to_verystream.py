@@ -1,25 +1,29 @@
 """Upload local Files to Mirrors
 Syntax:
 .verystream"""
- 
-import aiohttp
-import aiofiles
+
 import asyncio
 import hashlib
 import json
-import magic
 import os
-import requests
 import time
 from datetime import datetime
+
+import aiofiles
+import aiohttp
+import magic
+import requests
+
 from uniborg.util import admin_cmd, progress
- 
- 
+
+from sample_config import Config
+
+
 @borg.on(admin_cmd(pattern="verystream ?(.*)", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
-    mone = await event.reply("Processing ...")
+    mone = await event.edit("Processing ...")
     if Config.VERY_STREAM_LOGIN is None or Config.VERY_STREAM_KEY is None:
         await mone.edit("This module requires API key from https://verystream.com. Aborting!")
         return False
@@ -113,8 +117,8 @@ async def _(event):
                 await mone.edit(f"VeryStream returned {step_zero_response_text['status']} => {step_zero_response_text['msg']}, after STEP INIT")
     else:
         await mone.edit("File Not found in local server. Give me a file path :((")
- 
- 
+
+
 def get_sha_one_hash(input_file, chunk_size):
     sha1 = hashlib.sha1()
     with open(input_file, "rb") as f:

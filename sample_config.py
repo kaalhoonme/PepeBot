@@ -104,10 +104,11 @@ class Config(object):
     G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", None)
     GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", None)
     AUTH_TOKEN_DATA = os.environ.get("AUTH_TOKEN_DATA", None)
-    os.makedirs(TMP_DOWNLOAD_DIRECTORY, exist_ok=True)
-    t_file = open(TMP_DOWNLOAD_DIRECTORY+"auth_token.txt","w")
-    t_file.write(AUTH_TOKEN_DATA)
-    t_file.close()
+    if AUTH_TOKEN_DATA != None:
+        os.makedirs(TMP_DOWNLOAD_DIRECTORY)
+        t_file = open(TMP_DOWNLOAD_DIRECTORY+"auth_token.txt","w")
+        t_file.write(AUTH_TOKEN_DATA)
+        t_file.close()
     #
     TELE_GRAM_2FA_CODE = os.environ.get("TELE_GRAM_2FA_CODE", None)
     #
@@ -134,8 +135,23 @@ class Config(object):
     # define "repo_link" in conig_vars
     PACKS_CONTENT = os.environ.get("PACKS_CONTENT", None)
     #
+    #MIRRORACE STUFF
+    MIRROR_ACE_API_KEY = os.environ.get("MIRROR_ACE_API_KEY", None)
+    MIRROR_ACE_API_TOKEN = os.environ.get("MIRROR_ACE_API_TOKEN", None)
+    #
     RAVANA_LEELA = os.environ.get("RAVANA_LEELA", None)
-
+    # spotify stuff
+    DEFAULT_BIO = os.environ.get("DEFAULT_BIO",None)
+    SPOTIFY_BIO_PREFIX = os.environ.get("SPOTIFY_BIO_PREFIX",None)
+    SPOTIFY_PASS = os.environ.get("SPOTIFY_PASS",None)
+    SPOTIFY_USERNAME = os.environ.get("SPOTIFY_USERNAME",None)
+    DEFAULT_NAME = os.environ.get("DEFAULT_NAME", None)
+    #MongoDB
+    MONGO_URI = os.environ.get("MONGO_URI", None)
+    # define the "types" that should be uplaoded as streamable
+    TL_VID_STREAM_TYPES = ("MP4", "WEBM")
+    TL_MUS_STREAM_TYPES = ("MP3", "WAV", "FLAC")
+ 
 
 class Production(Config):
     LOGGER = False
