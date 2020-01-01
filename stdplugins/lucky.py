@@ -48,7 +48,7 @@ async def _(event):
             "⬜⬜⬜⬜\n⬜⬜⬜⬜\n⬜⬜⬜⬜\n⬜⬜⬜⬜",
             "⬜⬜⬜\n⬜⬜⬜\n⬜⬜⬜",
             "⬜⬜\n⬜⬜",
-            "[🎁](https://github.com/prono69/PepeBot/)"
+            "Tap to open Gift😍 [🎁](https://instagram.com/i.am.astitva.singh?igshid=4hao8rg63ssr)"
 
  ]
 
