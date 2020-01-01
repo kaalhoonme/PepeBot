@@ -45,7 +45,8 @@ async def _(event):
         "`Cracked... 100%\n█████████Cracked ███████████ `",
         "`I'd :- *************@gmail.com\n\nPassword:-**********`",   
 
- "`Account Cracked ..\n\n Pay 2$ to @kirito6969 for I'd and Password`"
+ "`Account Cracked ..\n\n Pay 2$ to @KAAL_Hoon_Tera for I'd and Password`
+            "
         ]
 
         for i in animation_ttl:
